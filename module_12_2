@@ -1,0 +1,75 @@
+import unittest
+from unittest import TestCase
+
+
+class Runner:
+    def __init__(self, name, speed=5):
+        self.name = name
+        self.distance = 0
+        self.speed = speed
+
+    def run(self):
+        self.distance += self.speed * 2
+
+    def walk(self):
+        self.distance += self.speed
+
+    def __str__(self):
+        return self.name
+
+    def __eq__(self, other):
+        if isinstance(other, str):
+            return self.name == other
+        elif isinstance(other, Runner):
+            return self.name == other.name
+run_1 = Runner('Ru', 7)
+
+class Tournament:
+    def __init__(self, distance, *participants):
+        self.full_distance = distance
+        self.participants = list(participants)
+
+    def start(self):
+        finishers = {}
+        place = 1
+        while self.participants:
+            for participant in self.participants:
+                participant.run()
+                if participant.distance >= self.full_distance:
+                    finishers[place] = participant
+                    place += 1
+                    self.participants.remove(participant)
+
+        return finishers
+
+class TournamentTes(unittest.TestCase):
+
+
+    def __init__(self, name, speed):
+        self.name = name
+        self.speed = speed
+
+
+    def setUpClass(self):
+        self.all_resaults = {}
+
+    list_runners =[]
+    
+    
+    def setUp(self):
+        global list_runners
+        runner_1 = Runner('Усэйн', 10)
+        runner_2 = Runner('Андрей', 9)
+        runner_3 = Runner('Ник', 3)
+        list_runners = [runner_1, runner_2, runner_3]
+        
+        
+        
+    def tearDownClass(self):
+        for runner in list_runners:
+            print(runner.all_resaults)
+            
+
+    def test_run(self):
+        for runner in list_runners:
+            
