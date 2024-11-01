@@ -1,0 +1,43 @@
+import unittest
+
+
+class Runner:
+    def __init__(self, name):
+        self.name = name
+        self.distance = 0
+
+    def run(self):
+        self.distance += 10
+
+    def walk(self):
+        self.distance += 5
+
+    def __str__(self):
+        return self.name
+
+
+class RunnerTest(unittest.TestCase):
+
+
+    def test_walk(self):
+        man_1 = Runner('den1')
+        for i in range(10):
+            man_1.walk()
+            # print(man_1.distance)
+        self.assertEqual(50, man_1.distance)
+
+
+    def test_run(self):
+        man_1 = Runner('den2')
+        for i in range(10):
+            man_1.run()
+        self.assertEqual(100, man_1.distance)
+
+
+    def test_challenge(self):
+        man_3 = Runner('den3')
+        man_4 = Runner('den4')
+        for i in range(10):
+            man_3.run()
+            man_4.walk()
+            self.assertNotEqual(man_3.distance, man_4.distance)
